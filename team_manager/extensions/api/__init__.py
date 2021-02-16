@@ -3,7 +3,7 @@
 Override base classes here to allow painless customization in the future.
 """
 import marshmallow as ma
-from marshmallow_sqlalchemy import TableSchema as OrigTableSchema
+from marshmallow_sqlalchemy import SQLAlchemyAutoSchema
 
 from flask_smorest import Api as ApiOrig, Blueprint as BlueprintOrig, Page
 
@@ -34,8 +34,8 @@ class Schema(ma.Schema):
     """Schema override"""
 
 
-class TableSchema(OrigTableSchema):
-    """TableSchema override"""
+class AutoSchema(SQLAlchemyAutoSchema):
+    """SQLAlchemyAutoSchema override"""
 
     class Meta:
         include_fk = True

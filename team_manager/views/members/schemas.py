@@ -3,14 +3,14 @@
 import marshmallow as ma
 from marshmallow_sqlalchemy import field_for
 
-from team_manager.extensions.api import Schema, TableSchema
+from team_manager.extensions.api import Schema, AutoSchema
 from team_manager.models.members import Member
 
 
-class MemberSchema(TableSchema):
+class MemberSchema(AutoSchema):
     id = field_for(Member, "id", dump_only=True)
 
-    class Meta(TableSchema.Meta):
+    class Meta(AutoSchema.Meta):
         table = Member.__table__
 
 
