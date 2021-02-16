@@ -2,7 +2,6 @@
 # pylint: disable=invalid-name
 import uuid
 import datetime as dt
-import json
 
 
 DUMMY_ID = str(uuid.UUID('00000000-0000-0000-0000-000000000000'))
@@ -29,7 +28,7 @@ class TestApi:
             'birthdate': dt.datetime(1958, 10, 2).isoformat()
         }
 
-        ret = client.post(MEMBERS_URL, data=json.dumps(member_1))
+        ret = client.post(MEMBERS_URL, json=member_1)
         assert ret.status_code == 201
         ret_val = ret.json
         member_1_id = ret_val.pop('id')
@@ -55,7 +54,7 @@ class TestApi:
         del member_1['first_name']
         ret = client.put(
             MEMBERS_URL + member_1_id,
-            data=json.dumps(member_1),
+            json=member_1,
             headers={'If-Match': member_1_etag}
         )
         assert ret.status_code == 200
@@ -67,7 +66,7 @@ class TestApi:
         # PUT wrong ID -> 404
         ret = client.put(
             MEMBERS_URL + DUMMY_ID,
-            data=json.dumps(member_1),
+            json=member_1,
             headers={'If-Match': member_1_etag}
         )
         assert ret.status_code == 404
@@ -102,7 +101,7 @@ class TestApi:
             'name': 'Ghostbusters',
         }
 
-        ret = client.post(TEAMS_URL, data=json.dumps(team_1))
+        ret = client.post(TEAMS_URL, json=team_1)
         assert ret.status_code == 201
         ret_val = ret.json
         team_1_id = ret_val.pop('id')
@@ -113,7 +112,7 @@ class TestApi:
             'name': 'A-Team',
         }
 
-        ret = client.post(TEAMS_URL, data=json.dumps(team_2))
+        ret = client.post(TEAMS_URL, json=team_2)
         assert ret.status_code == 201
         ret_val = ret.json
         team_2_id = ret_val.pop('id')
@@ -126,7 +125,7 @@ class TestApi:
             'birthdate': dt.datetime(1958, 10, 2).isoformat(),
             'team_id': team_1_id,
         }
-        ret = client.post(MEMBERS_URL, data=json.dumps(member_1))
+        ret = client.post(MEMBERS_URL, json=member_1)
         assert ret.status_code == 201
         ret_val = ret.json
         member_1_id = ret_val.pop('id')
@@ -137,7 +136,7 @@ class TestApi:
             'birthdate': dt.datetime(1960, 9, 6).isoformat(),
             'team_id': team_1_id,
         }
-        ret = client.post(MEMBERS_URL, data=json.dumps(member_2))
+        ret = client.post(MEMBERS_URL, json=member_2)
         assert ret.status_code == 201
         ret_val = ret.json
         member_2_id = ret_val.pop('id')
