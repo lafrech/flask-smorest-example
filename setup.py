@@ -35,7 +35,7 @@ setup(
     install_requires=[
         'flask>=1.0.0',
         'python-dotenv>=0.9.0',
-        'flask-smorest>=0.18.0,<0.19',
+        'flask-smorest>=0.29.0,<0.30',
         'marshmallow>=3.0.0',
         'sqlalchemy>=1.2.5',
         'sqlalchemy-utils>=0.32.21',

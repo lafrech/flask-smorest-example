@@ -12,6 +12,11 @@ class Blueprint(BlueprintOrig):
     """Blueprint override"""
 
 
+# Define custom converter to schema function
+# def customconverter2paramschema(converter):
+#     return {'type': 'custom_type', 'format': 'custom_format'}
+
+
 class Api(ApiOrig):
     """Api override"""
 
@@ -21,8 +26,8 @@ class Api(ApiOrig):
         # Register custom Marshmallow fields in doc
         # self.register_field(CustomField, 'type', 'format')
 
-        # Register custom Flask url parameter converters in doc
-        # self.register_converter(CustomConverter, 'type', 'format')
+        # Register custom Flask url parameter converters
+        # api.register_converter(CustomConverter, customconverter2paramschema)
 
 
 class Schema(ma.Schema):

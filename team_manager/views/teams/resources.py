@@ -22,7 +22,7 @@ class Teams(MethodView):
 
     @blp.etag
     @blp.arguments(TeamQueryArgsSchema, location='query')
-    @blp.response(TeamSchema(many=True))
+    @blp.response(200, TeamSchema(many=True))
     @blp.paginate(SQLCursorPage)
     def get(self, args):
         """List teams"""
@@ -34,7 +34,7 @@ class Teams(MethodView):
 
     @blp.etag
     @blp.arguments(TeamSchema)
-    @blp.response(TeamSchema, code=201)
+    @blp.response(201, TeamSchema)
     def post(self, new_item):
         """Add a new team"""
         item = Team(**new_item)
@@ -47,14 +47,14 @@ class Teams(MethodView):
 class TeamsById(MethodView):
 
     @blp.etag
-    @blp.response(TeamSchema)
+    @blp.response(200, TeamSchema)
     def get(self, item_id):
         """Get team by ID"""
         return Team.query.get_or_404(item_id)
 
     @blp.etag
     @blp.arguments(TeamSchema)
-    @blp.response(TeamSchema)
+    @blp.response(200, TeamSchema)
     def put(self, new_item, item_id):
         """Update an existing team"""
         item = Team.query.get_or_404(item_id)
@@ -65,7 +65,7 @@ class TeamsById(MethodView):
         return item
 
     @blp.etag
-    @blp.response(code=204)
+    @blp.response(204)
     def delete(self, item_id):
         """Delete a team"""
         item = Team.query.get_or_404(item_id)
