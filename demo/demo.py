@@ -7,8 +7,8 @@
 #     text_representation:
 #       extension: .py
 #       format_name: light
-#       format_version: '1.4'
-#       jupytext_version: 1.2.4
+#       format_version: '1.5'
+#       jupytext_version: 1.10.1
 #   kernelspec:
 #     display_name: Python 3
 #     language: python
@@ -21,7 +21,6 @@
 
 import uuid
 import datetime as dt
-import json
 import requests
 
 
@@ -64,7 +63,7 @@ member_1 = {
 
 ret = requests.post(
     MEMBERS_URL,
-    data=json.dumps(member_1)
+    json=member_1
 )
 
 
@@ -118,7 +117,7 @@ ret.text
 del member_1['first_name']
 ret = requests.put(
     MEMBERS_URL + member_1_id,
-    data=json.dumps(member_1),
+    json=member_1,
     headers={'If-Match': member_1_etag}
 )
 
@@ -134,7 +133,7 @@ member_1_etag = ret.headers['ETag']
 
 ret = requests.put(
     MEMBERS_URL + member_1_id,
-    data=json.dumps(member_1),
+    json=member_1,
 )
 ret.status_code
 
@@ -142,7 +141,7 @@ ret.status_code
 
 ret = requests.put(
     MEMBERS_URL + member_1_id,
-    data=json.dumps(member_1),
+    json=member_1,
     headers={'If-Match': DUMMY_ETAG}
 )
 ret.status_code
@@ -151,7 +150,7 @@ ret.status_code
 
 ret = requests.put(
     MEMBERS_URL + DUMMY_ID,
-    data=json.dumps(member_1),
+    json=member_1,
     headers={'If-Match': member_1_etag}
 )
 ret.status_code
@@ -192,7 +191,7 @@ team_1 = {
 }
 ret = requests.post(
     TEAMS_URL,
-    data=json.dumps(team_1)
+    json=team_1
 )
 team_1_id = ret.json().pop('id')
 
@@ -201,7 +200,7 @@ team_2 = {
 }
 ret = requests.post(
     TEAMS_URL,
-    data=json.dumps(team_2)
+    json=team_2
 )
 team_2_id = ret.json().pop('id')
 
@@ -216,7 +215,7 @@ member_1 = {
 }
 ret = requests.post(
     MEMBERS_URL,
-    data=json.dumps(member_1)
+    json=member_1
 )
 member_1_id = ret.json().pop('id')
 
@@ -228,7 +227,7 @@ member_2 = {
 }
 ret = requests.post(
     MEMBERS_URL,
-    data=json.dumps(member_1)
+    json=member_1
 )
 member_2_id = ret.json().pop('id')
 
